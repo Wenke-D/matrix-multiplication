@@ -6,9 +6,9 @@ set(CMAKE_PREFIX_PATH "/opt/hpx")
 
 find_package(HPX REQUIRED)
 
+add_library(matrix matrix.cpp)
+
 add_executable(app main.cpp)
 
-
-
 # specify necessary lib for a target
-target_link_libraries(app HPX::hpx HPX::wrap_main HPX::iostreams_component)
+target_link_libraries(app HPX::hpx HPX::wrap_main HPX::iostreams_component matrix)
