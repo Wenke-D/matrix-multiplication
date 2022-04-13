@@ -22,7 +22,7 @@ int main() {
 
     Matrix<int> I_2{2, 2, 1};
 
-    // cout << I_2 << endl;
+    cout << I_2 << endl;
 
     cout << I_2[0] << endl;
 }

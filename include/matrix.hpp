@@ -22,7 +22,7 @@ template <typename T> class Matrix {
     std::vector<T> operator[](size_t i);
 
     void set(size_t i, size_t j, T v);
-    
-    template<typename U>
+
+    template <typename U>
     friend std::ostream &operator<<(std::ostream &os, const Matrix<U> &m);
 };
