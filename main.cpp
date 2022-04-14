@@ -28,23 +28,31 @@ int operator*(vector<int> v1, vector<int> v2) {
                                  std::plus<int>(), std::multiplies<int>());
 }
 
-Matrix<int> operator*(Matrix<int> m1, Matrix<int> m2) {
+Matrix<int> operator*(const Matrix<int> &m1, const Matrix<int> &m2) {
 
     size_t height = m1.height, width = m2.width;
 
     Matrix<int> res{height, width, 0};
 
+    std::vector<hpx::shared_future<void>> tasks;
+
     for (size_t i = 0; i < height; i++) {
         for (size_t j = 0; j < width; j++) {
-            hpx::async([&]() {
+            hpx::shared_future<int> f = hpx::async([=, &res]() mutable {
                 std::vector<int> row = m1[i];
                 std::vector<int> col = m2.col(j);
                 int value = row * col;
                 res.set(i, j, value);
-                return;
+                return 0;
             });
+            tasks.push_back(f);
         }
     }
+
+    for(auto& f : tasks){
+        f.wait();
+    }
+
     return res;
 }
 

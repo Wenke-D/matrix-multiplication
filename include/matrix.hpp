@@ -29,7 +29,7 @@ template <typename T> class Matrix {
      * @param i row index, begin from 0
      * @return std::vector<T>
      */
-    std::vector<T> operator[](size_t i);
+    std::vector<T> operator[](size_t i) const;
 
     /**
      * @brief Get a the column j
@@ -37,7 +37,7 @@ template <typename T> class Matrix {
      * @param j index of a col
      * @return std::vector<T> 
      */
-    std::vector<T> col(size_t j);
+    std::vector<T> col(size_t j) const;
 
     void set(size_t i, size_t j, T v);
 
@@ -47,7 +47,7 @@ template <typename T> class Matrix {
 
 
 template <typename T>
-std::vector<T> Matrix<T>::operator[](size_t i) {
+std::vector<T> Matrix<T>::operator[](size_t i) const{
     if (i >= height)
         throw std::invalid_argument("Line too big");
         
@@ -58,7 +58,7 @@ std::vector<T> Matrix<T>::operator[](size_t i) {
 }
 
 template <typename T>
-std::vector<T> Matrix<T>::col(size_t j) {
+std::vector<T> Matrix<T>::col(size_t j) const{
     if (j >= width)
         throw std::invalid_argument("col too big");
         
