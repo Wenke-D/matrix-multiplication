@@ -19,8 +19,8 @@ using namespace std;
 /**
  * @brief inner product of 2 vectors, assuming they have the same size.
  *
- * @param v1
- * @param v2
+ * @param v1 the row vector
+ * @param v2 the col vector
  * @return int
  */
 int operator*(vector<int> v1, vector<int> v2) {
@@ -34,14 +34,16 @@ Matrix<int> operator*(Matrix<int> m1, Matrix<int> m2) {
 
     Matrix<int> res{height, width, 0};
 
-    for (size_t i = 0; i < height; i++)
-    {
-        for (size_t j = 0; j < width; j++)
-        {
-            int value = m1[i] * m2.col(j);
-            res.set(i, j, value);
+    for (size_t i = 0; i < height; i++) {
+        for (size_t j = 0; j < width; j++) {
+            hpx::async([&]() {
+                std::vector<int> row = m1[i];
+                std::vector<int> col = m2.col(j);
+                int value = row * col;
+                res.set(i, j, value);
+                return;
+            });
         }
-        
     }
     return res;
 }
