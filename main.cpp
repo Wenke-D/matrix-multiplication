@@ -37,7 +37,7 @@ Matrix<int> operator*(Matrix<int> m1, Matrix<int> m2) {
     for (size_t i = 0; i < height; i++)
     {
         for (size_t j = 0; j < width; j++)
-        {   
+        {
             int value = m1[i] * m2.col(j);
             res.set(i, j, value);
         }
